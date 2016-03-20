@@ -161,7 +161,7 @@ def main(argv):
         strip.begin()
 
         # Lower power consumption, but makes it flicker.
-        # strip.setBrightness(LED_GLOBAL_BRIGHTNESS)
+        strip.setBrightness(LED_GLOBAL_BRIGHTNESS)
 
     bitmap = initialize_empty_bitmap()
     render_bitmap(bitmap, strip)

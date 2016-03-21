@@ -13,10 +13,9 @@ import PIL
 
 HEIGHT = 240        # Number of LEDS (60 per meter)
 WIDTH = 4           # Number of LED strips
-DATAPIN   = 10      # Data Pin
-CLOCKPIN  = 11      # Clock Pin
-BLUR_AMOUNT = 29    # Blur amount
-GLOBAL_LUM = 30     # Global Lum. Currently unused
+DATAPIN   = 10      # Data Pin for SPI. Probably needs a 3.3v to 5v level stepper
+CLOCKPIN  = 11      # Clock Pin for SPI. Probably needs a 3.3v to 5v level stepper
+BLUR_AMOUNT = 29    # Blur amount. More is better for accuracy.
 LED_GLOBAL_BRIGHTNESS = 12 # Global LED Brightness. Causes flickering. Might be easier to dim all pixels in RGB. Or just have better power supplies
 OFFSET = 0
 

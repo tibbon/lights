@@ -18,6 +18,7 @@ CLOCKPIN  = 11      # Clock Pin
 BLUR_AMOUNT = 29    # Blur amount
 GLOBAL_LUM = 30     # Global Lum. Currently unused
 LED_GLOBAL_BRIGHTNESS = 12 # Global LED Brightness. Causes flickering. Might be easier to dim all pixels in RGB. Or just have better power supplies
+OFFSET = 0
 
 # Performs a strong GaussianBlur
 # image:Image -> Image
@@ -109,9 +110,9 @@ def wrap_and_display_to_leds(image, strip):
         for led_length_index in xrange(HEIGHT):
             value = image[led_length_index][led_strip_index]
             if led_strip_index % 2 == 0:
-                pixel_index = HEIGHT * led_strip_index + led_length_index
+                pixel_index = HEIGHT * led_strip_index + led_length_index + OFFSET
             else:
-                pixel_index = HEIGHT * led_strip_index + (HEIGHT - led_length_index)
+                pixel_index = HEIGHT * led_strip_index + (HEIGHT - led_length_index) + OFFSET
             strip.setPixelColor(pixel_index, value[0], value[1], value[2])
     strip.show()
 

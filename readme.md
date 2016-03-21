@@ -1,5 +1,10 @@
-Run script:
-`python lights.py`
+Run script on the PI:
+`python lights.py pi camera`
+
+Run locally for debugging:
+`python lights.py debug camera`
+
+Other flags instead of `camera` include `video` and `image`. You can pass a 3rd arg with an image name too.
 
 Install Requirements:
 `pip install -r requirements.txt`

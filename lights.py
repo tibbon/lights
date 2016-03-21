@@ -158,7 +158,7 @@ def main(argv):
 
     if MODE == 'pi':
         from dotstar import Adafruit_DotStar
-        strip = Adafruit_DotStar(HEIGHT*WIDTH, DATAPIN, CLOCKPIN)
+        strip = Adafruit_DotStar(HEIGHT*WIDTH + OFFSET, DATAPIN, CLOCKPIN)
         strip.begin()
 
         # Lower power consumption, but makes it flicker.

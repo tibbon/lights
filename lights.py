@@ -143,6 +143,9 @@ def shrink(image):
     return cv2.resize(image,None,fx=0.3, fy=0.3, interpolation = cv2.INTER_AREA)
 
 
+# This is the main function
+# It is kinda messy because it sets up alternate paths for various modes
+# (args) -> Boolean
 def main(argv):
     global MODE
     global INPUT
@@ -155,6 +158,7 @@ def main(argv):
         cv2.namedWindow('preview')
         strip = True
 
+    # If you're running on the PI, you want to setup the LED strip
     if MODE == 'pi':
         from dotstar import Adafruit_DotStar
         strip = Adafruit_DotStar(HEIGHT*WIDTH + OFFSET, DATAPIN, CLOCKPIN)
@@ -167,6 +171,8 @@ def main(argv):
     render_bitmap(bitmap, strip)
 
     # INPUT SELECTION SETUP
+    # If you're using a USB camera for input
+    # TODO: Allow for arg use for different cameras
     if INPUT == 'camera':
         if MODE == 'debug':
             cv2.namedWindow('cameraPreview', cv2.WINDOW_NORMAL)
@@ -187,6 +193,7 @@ def main(argv):
             if key == 27: # exit on ESC
                 break
 
+    # If you're using a static image for debugging
     if INPUT == 'image':
         if len(sys.argv) == 4:
             frame = cv2.imread(sys.argv[3])
@@ -200,6 +207,7 @@ def main(argv):
             if key == 27: # exit on ESC
                 break
 
+    # If you're using a pre-recorded video for debugging set it here
     if INPUT == 'video':
         cv2.namedWindow('videoPreview', cv2.WINDOW_NORMAL)
         vc = cv2.VideoCapture('WaveCanon2.mp4')
@@ -219,6 +227,6 @@ def main(argv):
 
         return False
 
-
+# This is python magic I don't understand. Wat.
 if __name__ == '__main__':
    main(sys.argv[1:])

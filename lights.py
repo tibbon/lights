@@ -83,12 +83,7 @@ def initialize_empty_bitmap():
 # frame:Image -> Deque
 def process_frame(frame):
 
-    # Camera already comes in pre-shrunk
-    if INPUT == 'camera':
-        ready_frame = blur(convert_color(frame))
-    else:
-        ready_frame = blur(shrink(convert_color(frame)))
-
+    ready_frame = blur(convert_color(shrink(frame)))
     bright_points = deque()
     (height, width, _) = ready_frame.shape
     slice_size = width / WIDTH
@@ -111,7 +106,7 @@ def wrap_and_display_to_leds(image, strip):
             if led_strip_index % 2 == 0:
                 pixel_index = HEIGHT * led_strip_index + led_length_index + OFFSET
             else:
-                pixel_index = HEIGHT * led_strip_index + (HEIGHT - led_length_index) + OFFSET
+                pixel_index = HEIGHT * led_strip_index + (HEIGHT - led_length_index - 1) + OFFSET
             strip.setPixelColor(pixel_index, value[0], value[1], value[2])
     strip.show()
 

@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 import numpy as np
-from multiprocessing import Pool
+from multiprocessing.pool import ThreadPool
 from numpy import unravel_index
 import cv2
 import sys
@@ -181,7 +181,7 @@ def main(argv):
     global p
     MODE = sys.argv[1]  # debug / pi
     INPUT = sys.argv[2] # camera / image / video
-    p = Pool(4)
+    p = ThreadPool(4)
 
     # MODE SETUP FOR LEDs or Display
     if MODE == 'debug':

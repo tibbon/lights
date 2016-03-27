@@ -100,7 +100,7 @@ def initialize_empty_bitmap():
 def process_frame(frame):
 
     ready_frame = blur(convert_color(shrink(frame))) # 90% of the time here is spent in this
-    cv2.imshow('cameraPreview', cv2.cvtColor(ready_frame, cv2.COLOR_HSV2RGB))
+    # cv2.imshow('cameraPreview', cv2.cvtColor(ready_frame, cv2.COLOR_HSV2RGB))
     bright_points = deque()
     (height, width, _) = ready_frame.shape
     slice_size = width / WIDTH

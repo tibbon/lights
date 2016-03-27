@@ -205,7 +205,7 @@ def main(argv):
             cv2.namedWindow('cameraPreview', cv2.WINDOW_NORMAL)
         vc = cv2.VideoCapture(0)
         if vc.isOpened():
-            vc.set(15, -10)
+            # vc.set(15, -10)
             vc.set(3,200) # These aren't accurate, but help
             vc.set(4,100)
             rval, frame = vc.read()

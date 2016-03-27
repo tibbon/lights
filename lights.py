@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 import numpy as np
+from multiprocessing import Pool
 from numpy import unravel_index
 import cv2
 import sys
@@ -98,10 +99,9 @@ def initialize_empty_bitmap():
 # 5.79235 s
 # @profile
 def process_frame(frame):
-
     ready_frame = blur(convert_color(shrink(frame))) # 90% of the time here is spent in this
     # cv2.imshow('cameraPreview', cv2.cvtColor(ready_frame, cv2.COLOR_HSV2RGB))
-    bright_points = deque()
+    # bright_points = deque() # I can skip this and just use a list
     (height, width, _) = ready_frame.shape
     slice_size = width / WIDTH
     image_slices = deque()
@@ -109,10 +109,12 @@ def process_frame(frame):
         left = int(n * slice_size)
         right = int((n + 1) * slice_size)
         image_slices.append(ready_frame[0:width, left:right])
-        dominant_color_pixel = find_dominant_color(image_slices[n])
-        bright_points.append(dominant_color_pixel)
+        # I could maybe push this out to threads? Using a Threadpool of processor size
+        # and then doing it for each of the image slices.
+        # dominant_color_pixel = find_dominant_color(image_slices[n])
+        # bright_points.append(dominant_color_pixel)
 
-    return bright_points
+    return p.map(find_dominant_color, image_slices)
 
 
 # Zig-zags around for the led strips in rows.
@@ -176,8 +178,10 @@ def shrink(image):
 def main(argv):
     global MODE
     global INPUT
+    global p
     MODE = sys.argv[1]  # debug / pi
     INPUT = sys.argv[2] # camera / image / video
+    p = Pool(4)
 
     # MODE SETUP FOR LEDs or Display
     if MODE == 'debug':

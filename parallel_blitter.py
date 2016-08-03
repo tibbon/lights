@@ -19,18 +19,20 @@ FRAME_MASTER = 'master'
 FRAME_KEY = 'frame'
 
 def prep_client(client):
-    client.delete(FRAME_KEY)
+    client.delete('q1')
+    client.delete('q2')
+    client.delete('q3')
+    client.delete('q4')
 
 def main():
     client = redis.Redis()
     prep_client(client)
 
-    pixel_width = 360 # I don't know what this does!!! Is it the length?
+    pixel_width = 360 # Number per strip
     delay = 0.001
     print("Starting")
 
     while True:
-        frame_name, frame = client.blpop(FRAME_KEY)
         _, q1_frame = client.blpop('q1')
         _, q2_frame = client.blpop('q2')
         _, q3_frame = client.blpop('q3')
@@ -38,13 +40,13 @@ def main():
 
         full_frame = q1_frame + q2_frame + q3_frame + q4_frame
 
-        print("Loop")
-        frame = cPickle.loads(frame)
+        # print("Loop")
+        frame = cPickle.loads(full_frame)
         lines = []
 
         # For all the strips?
         for i in range(0, 8):
-            lines.append(full_frame[pixel_width*i:pixel_width*(i+1)])
+            lines.append(frame[pixel_width*i:pixel_width*(i+1)])
 
         # Sends two strips at a time?
         for index in range(0, 6):

@@ -123,6 +123,9 @@ def display_to_pixelpusher(image, strip, redis_client):
             strip.set_pixel(led_length_index, led_strip_index, value[0], value[1], value[2])
     new_frame = strip.step()
     redis_client.rpush(FRAME_KEY, cPickle.dumps(new_frame))
+    redis_client.rpush('q2', cPickle.dumps(new_frame))
+    redis_client.rpush('q3', cPickle.dumps(new_frame))
+    redis_client.rpush('q4', cPickle.dumps(new_frame))
     # redis_client.rpush('debug', cPickle.dumps(new_frame))
 
 # Renders to LEDs or screen
@@ -154,6 +157,7 @@ def main(argv):
     global MODE
     global INPUT
     global p
+    global FRAME_KEY
     INPUT = sys.argv[1] # camera / image / video
     FRAME_KEY = sys.argv[2] # This is which PI. Need to be configured per unit!
 

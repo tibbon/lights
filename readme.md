@@ -1,15 +1,24 @@
-Run script on the PI:
-`python lights.py pi camera`
+To run Pixelpusher, open tabs with the following:
 
-Run locally for debugging:
-`python lights.py debug camera`
+- `redis-server`
+- `redis-cli monitor`
+- `python lights.py camera`
+- `python blitter.py`
 
-Other flags instead of `camera` include `video` and `image`. You can pass a 3rd arg with an image name too.
+## Initial Python setup
+
+OpenCV will probably give installation problems on OS X.
 
 Install Requirements:
 `pip install -r requirements.txt`
 `pip freeze >> requirements.txt `
-Run iPython:
-`ipython -i lights.py`
 
-PEP8 for style?
+## Debug Pixelpusher via serial.
+
+1) Hook up via USB cable
+2) Run `screen /dev/tty.usbmodem12341 115200`
+
+## Updating Pixelpusher firmware:
+
+`./configtool /dev/tty.usbmodem12341 ./pixel.rc`
+

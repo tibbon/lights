@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 import numpy as np
-from multiprocessing.pool import ThreadPool
+from multiprocessing.pool import Pool
 from numpy import unravel_index
 import cv2
 import sys
@@ -135,14 +135,7 @@ def wrap_and_display_to_leds(image, strip):
 # 2.95871 s
 # @profile
 def render_bitmap(bitmap, strip):
-    # 70% of this is spent in the following. Can I get around that?
-    # Surely some way to turn those queues around. Or maybe just array them to begin with?
     np_bitmap = np.array(bitmap, np.uint8) # A faster than below. Accurate?
-    # np_bitmap = np.zeros((HEIGHT, WIDTH, 3), np.uint8)
-    # for row_idx, row in enumerate(bitmap):
-    #     for column_idx, column in enumerate(row):
-    #         np_bitmap[row_idx][column_idx] = bitmap[row_idx][column_idx]
-
     rgb_image = cv2.cvtColor(np_bitmap, cv2.COLOR_HSV2RGB) # This is 25% of the time
     b,g,r = cv2.split(rgb_image)
     img = cv2.merge((g,r,b))
@@ -163,10 +156,6 @@ def enlarge(image):
 # 4.61985 s Lots of time here. Faster way? Different interpolation?
 # @profile
 def shrink(image):
-    # cv2.resize(image,None,fx=0.3, fy=0.3, interpolation = cv2.INTER_LINEAR) # 1000869
-    # cv2.resize(image,None,fx=0.3, fy=0.3, interpolation = cv2.INTER_AREA) # 4782976
-    # cv2.resize(image,None,fx=0.3, fy=0.3, interpolation = cv2.INTER_CUBIC) # 2115175
-    # cv2.resize(image,None,fx=0.3, fy=0.3, interpolation = cv2.INTER_LANCZOS4) # 5460249
     return cv2.resize(image,None,fx=0.3, fy=0.3, interpolation = cv2.INTER_NEAREST) #  359332 (way fastest)
 
 
@@ -181,7 +170,7 @@ def main(argv):
     global p
     MODE = sys.argv[1]  # debug / pi
     INPUT = sys.argv[2] # camera / image / video
-    p = ThreadPool(4)
+    p = Pool(4)
 
     # MODE SETUP FOR LEDs or Display
     if MODE == 'debug':

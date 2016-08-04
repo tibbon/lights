@@ -8,7 +8,7 @@ from pixelpusher import pixel, build_strip, send_strip
 
 import sys
 
-IP = '192.168.1.100' # Skipping DHCP
+IP = '192.168.1.100' # Skipping DHCP, needs to live here
 PORT = 9897
 
 MAX = 255

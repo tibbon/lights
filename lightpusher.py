@@ -176,8 +176,9 @@ def main(argv):
     camera.set(3, 81)
     camera.set(4, 50)
     camera.set(15, -10)
-
+    frame_count = 0
     while True:
+        print("frame: ", frame_count)
         frame = camera.read()
 
         colors = process_frame(frame)

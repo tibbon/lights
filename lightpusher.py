@@ -174,8 +174,11 @@ def main(argv):
     camera= cv2.VideoCapture(0)
 
     print("Setting camera properties")
+    pdb.set_trace()
+
     camera.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, 81.0)
     camera.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, 50.0)
+    time.sleep(2)
     # v4l2-ctl --set-fmt-video=width=81,height=50
 
     while True:

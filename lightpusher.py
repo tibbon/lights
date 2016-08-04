@@ -100,7 +100,7 @@ def initialize_empty_bitmap():
 # @profile
 def process_frame(frame):
     frame = frame[1] # Why is it a tuple now?
-    ready_frame = blur(convert_color(frame) )
+    ready_frame = blur(convert_color(shrink(shrink(frame))))
 
     (_, width, _) = ready_frame.shape
     print(width)
@@ -174,11 +174,11 @@ def main(argv):
     camera= cv2.VideoCapture(0)
 
     print("Setting camera properties")
-    pdb.set_trace()
+    # pdb.set_trace()
 
     camera.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, 81.0)
     camera.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, 50.0)
-    time.sleep(2)
+    # time.sleep(2)
     # v4l2-ctl --set-fmt-video=width=81,height=50
 
     while True:

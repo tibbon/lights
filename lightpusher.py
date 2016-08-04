@@ -103,6 +103,7 @@ def process_frame(frame):
     ready_frame = blur(convert_color(frame) )
 
     (_, width, _) = ready_frame.shape
+    print(width)
     slice_size = width / WIDTH # 9 pixel width slices
     image_slices = deque()
     for n in xrange(WIDTH):

@@ -3,10 +3,10 @@
 from __future__ import print_function
 import numpy as np
 from numpy import unravel_index
-from imutils.video import VideoStream
+# from imutils.video import VideoStream
 import cv2
 import sys
-import imutils
+# import imutils
 import itertools
 from collections import deque
 from PIL import Image
@@ -166,7 +166,6 @@ def main(argv):
     strip = Service(width=HEIGHT, height=WIDTH) # Yes, this seems backwards
 
     bitmap = initialize_empty_bitmap()
-    # render_bitmap(bitmap, strip, redis_client)
 
     cameras = []
 
@@ -178,10 +177,8 @@ def main(argv):
     camera.set(4, 50)
     camera.set(15, -10)
 
-
     while True:
         frame = camera.read()
-        # frame = imutils.resize(frame, width=100)
 
         colors = process_frame(frame)
 
@@ -193,62 +190,6 @@ def main(argv):
 
         if (cv2.waitKey(5) == 27):
             break
-
-        # vc = cv2.VideoCapture(0)
-        # if vc.isOpened():
-        #     vc.set(3,200) # These aren't accurate, but help
-        #     vc.set(4,100)
-        #     rval, frame = vc.read()
-        # else:
-        #     rval = False
-
-        # while rval:
-        #     rval, frame = vc.read()
-
-        #     # start = time.time()
-        #     flow(frame, bitmap, strip, redis_client)
-        #     key = cv2.waitKey(5)
-        #     if key == 27: # exit on ESC
-        #         break
-        #     # end = time.time()
-            # print(end - start)
-
-    # If you're using a static image for debugging
-    # if INPUT == 'image':
-    #     if len(sys.argv) == 4:
-    #         frame = cv2.imread(sys.argv[3])
-    #     else:
-    #         frame = cv2.imread('red.png')
-    #     rval = True
-
-    #     start = time.time()
-    #     while True:
-    #         flow(frame, bitmap, strip, redis_client)
-    #         key = cv2.waitKey(5)
-    #         if key == 27: # exit on ESC
-    #             break
-    #     end = time.time()
-    #     fps = 1000 / (end - start)
-    #     print('fps:', fps)
-
-    # # If you're using a pre-recorded video for debugging set it here
-    # if INPUT == 'video':
-    #     vc = cv2.VideoCapture('WaveCanon2.mp4')
-    #     if vc.isOpened():
-    #         rval, frame = vc.read()
-    #     else:
-    #         rval = False
-
-    #     while rval:
-    #         rval, frame = vc.read()
-    #         frame = shrink(frame) # 1080p video too big coming in
-
-    #         flow(frame, bitmap, strip, redis_client)
-    #         key = cv2.waitKey(5)
-    #         if key == 27: # exit on ESC
-    #             break
-
-    #     return False
 
 if __name__ == '__main__':
    main(sys.argv[1:])

@@ -174,12 +174,11 @@ def main(argv):
     camera= cv2.VideoCapture(0)
 
     print("Setting camera properties")
-    camera.set(3, 81)
-    camera.set(4, 50)
-    camera.set(15, -10)
-    frame_count = 0
+    camera.set(3, 81.0)
+    camera.set(4, 50.0)
+
     while True:
-        print("frame: ", frame_count)
+        print("frame")
         frame = camera.read()
 
         colors = process_frame(frame)

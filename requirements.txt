@@ -1,5 +1,4 @@
 appnope==0.1.0
-cv2==1.0
 decorator==4.0.6
 gnureadline==6.3.3
 numpy==1.10.2

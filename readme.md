@@ -10,6 +10,8 @@ To run Pixelpusher, open tabs with the following:
 OpenCV will probably give installation problems on OS X.
 
 Install Requirements:
+`virtualenv venv`
+`source venv/bin/activate`
 `pip install -r requirements.txt`
 `pip freeze >> requirements.txt `
 
@@ -32,3 +34,10 @@ Install Requirements:
 - 192.168.1.104, rPi quadrant 3
 - 192.168.1.105, rPi quadrant 4
 
+## Writing to SD cards
+
+If I need to clone SD cards:
+
+Find volume device: `diskutil list`
+Backup: `sudo dd if=~/rpi_image.dmg of=/dev/disk2`
+Restore: `sudo dd if=~/rpi_image.dmg of=/dev/disk2`

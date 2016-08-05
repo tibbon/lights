@@ -100,7 +100,7 @@ def initialize_empty_bitmap():
 # @profile
 def process_frame(frame):
     frame = frame[1] # Why is it a tuple now?
-    ready_frame = blur(convert_color(shrink(shrink(frame))))
+    ready_frame = blur(convert_color(shrink(frame)))
 
     (_, width, _) = ready_frame.shape
     print(width)
@@ -124,10 +124,9 @@ def display_to_pixelpusher(image, strip, redis_client):
             strip.set_pixel(led_length_index, led_strip_index, value[0], value[1], value[2])
     new_frame = strip.step()
     redis_client.rpush(FRAME_KEY, cPickle.dumps(new_frame))
-    redis_client.rpush('q2', cPickle.dumps(new_frame))
-    redis_client.rpush('q3', cPickle.dumps(new_frame))
-    redis_client.rpush('q4', cPickle.dumps(new_frame))
-    # redis_client.rpush('debug', cPickle.dumps(new_frame))
+    # redis_client.rpush('q2', cPickle.dumps(new_frame))
+    # redis_client.rpush('q3', cPickle.dumps(new_frame))
+    # redis_client.rpush('q4', cPickle.dumps(new_frame))
 
 # Renders to LEDs or screen
 # The bitmap coming in should be smaller right?
@@ -148,7 +147,7 @@ def render_bitmap(bitmap, strip, redis_client):
 # image:Image -> Image
 # @profile
 def shrink(image):
-    return cv2.resize(image,None,fx=0.5, fy=0.5, interpolation = cv2.INTER_NEAREST)
+    return cv2.resize(image,None,fx=0.25, fy=0.25, interpolation = cv2.INTER_NEAREST)
 
 # This is the main function
 # It is kinda messy because it sets up alternate paths for various modes
@@ -162,13 +161,10 @@ def main(argv):
     INPUT = sys.argv[1] # camera / image / video
     FRAME_KEY = sys.argv[2] # This is which PI. Need to be configured per unit!
 
-
     redis_client = redis_conn()
     strip = Service(width=HEIGHT, height=WIDTH) # Yes, this seems backwards
 
     bitmap = initialize_empty_bitmap()
-
-    cameras = []
 
     print("Initializing Camera 1")
     camera= cv2.VideoCapture(0)

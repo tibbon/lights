@@ -1,7 +1,7 @@
 appnope==0.1.0
 decorator==4.0.6
 gnureadline==6.3.3
-numpy==1.10.2
+numpy
 path.py==8.1.2
 pexpect==4.0.1
 pickleshare==0.5

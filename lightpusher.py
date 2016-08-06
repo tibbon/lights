@@ -25,8 +25,7 @@ from postprocess import BlurLeft, BlurRight
 from service import Service
 from util import redis_conn
 
-import pdb
-# pdb.set_trace()
+import ipdb
 
 NUM_CAMERAS = 4
 HEIGHT = 60        # Number of LEDS (60 per meter)
@@ -172,7 +171,7 @@ def main(argv):
     camera= cv2.VideoCapture(0)
 
     print("Setting camera properties")
-    pdb.set_trace()
+    ipdb.set_trace()
 
     camera.set(cv2.CAP_PROP_FRAME_WIDTH, 81.0)
     camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 50.0)

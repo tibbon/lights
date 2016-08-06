@@ -100,7 +100,7 @@ def initialize_empty_bitmap():
 # @profile
 def process_frame(frame):
     frame = frame[1] # Why is it a tuple now?
-    ready_frame = blur(convert_color(shrink(frame)))
+    ready_frame = blur(convert_color(frame))
 
     (_, width, _) = ready_frame.shape
     print(width)

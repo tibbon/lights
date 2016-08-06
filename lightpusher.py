@@ -172,8 +172,8 @@ def main(argv):
     print("Setting camera properties")
     # ipdb.set_trace()
 
-    camera.set(cv2.CAP_PROP_FRAME_WIDTH, 81.0)
-    camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 50.0)
+    camera.set(cv2.CAP_PROP_FRAME_WIDTH, 160.0)
+    camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 90.0)
     # time.sleep(2)
     # v4l2-ctl --set-fmt-video=width=81,height=50
 

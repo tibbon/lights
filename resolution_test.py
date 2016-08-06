@@ -6,7 +6,7 @@ def main(argv):
   camera= cv2.VideoCapture(0)
 
   for i in range(120, 1920):
-    result = camera.set(cv2.CAP_PROP_FRAME_WIDTH, i)
+    result = camera.set(3, i)
     print(result, ": ", i)
 
 if __name__ == '__main__':

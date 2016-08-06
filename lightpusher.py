@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+# MAKE SURE YOU RUN `workon cv` before running!
+
 from __future__ import print_function
 import numpy as np
 from numpy import unravel_index
@@ -16,18 +18,12 @@ import time
 import cPickle
 import os
 import random
-
-
-# New ones
 import redis
 from pixelpusher import pixel, build_strip, send_strip, bound
 from postprocess import BlurLeft, BlurRight
 from service import Service
 from util import redis_conn
 
-import ipdb
-
-NUM_CAMERAS = 4
 HEIGHT = 60        # Number of LEDS (60 per meter)
 WIDTH = 9          # Number of LED strips left/right
 BLUR_AMOUNT = 29    # Blur amount. More is better for accuracy.
@@ -143,23 +139,14 @@ def render_bitmap(bitmap, strip, redis_client):
 
     display_to_pixelpusher(img, strip, redis_client)
 
-# Shrinks image to 30% of original size. Makes faster and more accurate
-# image:Image -> Image
-# @profile
-def shrink(image):
-    return cv2.resize(image,None,fx=0.25, fy=0.25, interpolation = cv2.INTER_NEAREST)
-
 # This is the main function
 # It is kinda messy because it sets up alternate paths for various modes
 # (args) -> Boolean
 # @profile
 def main(argv):
-    global MODE
-    global INPUT
     global p
     global FRAME_KEY
-    INPUT = sys.argv[1] # camera / image / video
-    FRAME_KEY = sys.argv[2] # This is which PI. Need to be configured per unit!
+    FRAME_KEY = sys.argv[1] # This is which PI. Need to be configured per unit!
 
     redis_client = redis_conn()
     strip = Service(width=HEIGHT, height=WIDTH) # Yes, this seems backwards
@@ -170,12 +157,8 @@ def main(argv):
     camera= cv2.VideoCapture(0)
 
     print("Setting camera properties")
-    # ipdb.set_trace()
-
     camera.set(cv2.CAP_PROP_FRAME_WIDTH, 160.0)
     camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 90.0)
-    # time.sleep(2)
-    # v4l2-ctl --set-fmt-video=width=81,height=50
 
     while True:
         print("frame")

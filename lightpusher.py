@@ -167,11 +167,10 @@ def main(argv):
     bitmap = initialize_empty_bitmap()
 
     print("Initializing Camera 1")
-    os.system("v4l2-ctl --set-fmt-video=width=81,height=50")
     camera= cv2.VideoCapture(0)
 
     print("Setting camera properties")
-    ipdb.set_trace()
+    # ipdb.set_trace()
 
     camera.set(cv2.CAP_PROP_FRAME_WIDTH, 81.0)
     camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 50.0)

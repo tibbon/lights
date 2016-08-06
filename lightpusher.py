@@ -14,6 +14,7 @@ from io import BytesIO
 import PIL
 import time
 import cPickle
+import os
 import random
 
 
@@ -167,6 +168,7 @@ def main(argv):
     bitmap = initialize_empty_bitmap()
 
     print("Initializing Camera 1")
+    os.system("v4l2-ctl --set-fmt-video=width=81,height=50")
     camera= cv2.VideoCapture(0)
 
     print("Setting camera properties")

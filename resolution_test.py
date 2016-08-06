@@ -4,6 +4,10 @@ import sys
 
 def main(argv):
   camera= cv2.VideoCapture(0)
+  camera.set(cv2.CAP_PROP_AUTOFOCUS, False)
+  print("FPS: ", int(camera.get(cv2.CAP_PROP_FPS)))
+  print(camera.get(cv2.CAP_PROP_CONVERT_RGB))
+
 
   for i in range(120, 1920):
     result = camera.set(3, (i))

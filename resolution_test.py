@@ -5,7 +5,7 @@ import sys
 def main(argv):
   print('OpenCV version: ', cv2.__version__)
   camera= cv2.VideoCapture(0)
-  print("format ", camera.set(CAP_PROP_CONVERT_RGB, 0))
+  print("format ", camera.set(cv2.CAP_PROP_CONVERT_RGB, 0))
   camera.set(cv2.CAP_PROP_AUTOFOCUS, False)
   print("FPS: ", int(camera.get(cv2.CAP_PROP_FPS)))
   print(camera.get(cv2.CAP_PROP_CONVERT_RGB))

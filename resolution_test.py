@@ -10,6 +10,11 @@ def main(argv):
   print("FPS: ", int(camera.get(cv2.CAP_PROP_FPS)))
   print(camera.get(cv2.CAP_PROP_CONVERT_RGB))
 
+  for x in range(0, 40):
+    print("prop ",x , camera.get(x))
+
+  for x in range(0, 40):
+    print("prop set: ",x , camera.set(x, 0))
 
   for i in range(120, 1920):
     result = camera.set(3, (i))

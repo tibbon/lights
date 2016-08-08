@@ -99,6 +99,7 @@ def display_to_pixelpusher(image, strip, redis_client):
         for led_length_index in xrange(HEIGHT): # The position up and down a image, from the bottom, up to 60
             value = image[led_length_index][led_strip_index]
             strip.set_pixel(led_length_index, led_strip_index, value[0], value[1], value[2])
+
     new_frame = strip.step()
     redis_client.rpush(FRAME_KEY, cPickle.dumps(new_frame))
 
@@ -117,6 +118,8 @@ def main(argv):
 
     redis_client = redis_conn()
     strip = Service(width=HEIGHT, height=WIDTH) # Yes, this seems backwards
+    strip.add_post_process(BlurRight)
+    strip.add_post_process(BlurLeft)
 
     bitmap = initialize_empty_bitmap()
 
@@ -133,7 +136,6 @@ def main(argv):
         bitmap.appendleft(colors)
         bitmap.pop()
         np_bitmap = np.array(bitmap, dtype=np.uint8)
-
         render_bitmap(np_bitmap, strip, redis_client)
 
         if (cv2.waitKey(5) == 27):

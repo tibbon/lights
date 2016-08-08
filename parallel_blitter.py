@@ -3,12 +3,13 @@ import time
 import random
 import struct
 import cPickle
+import os
 
 from pixelpusher import pixel, build_strip, send_strip
 
 import sys
 
-IP = '192.168.1.100' # Skipping DHCP, needs to live here
+IP = '192.168.1.100' # Pixelpusher IP address
 PORT = 9897
 
 MAX = 255
@@ -18,6 +19,11 @@ OFF = 0
 FRAME_MASTER = 'master'
 FRAME_KEY = 'frame'
 
+def redis_conn():
+    host = os.environ.get('REDISHOST', '192.168.1.101')
+    print(host)
+    return redis.Redis(host=host)
+
 def prep_client(client):
     client.delete('q1')
     client.delete('q2')
@@ -25,7 +31,7 @@ def prep_client(client):
     client.delete('q4')
 
 def main():
-    client = redis.Redis()
+    client = redis_conn()
     prep_client(client)
 
     pixel_width = 360 # Number per strip

@@ -12,9 +12,9 @@ def bound(value, bottom, top):
 ## Doing things the functional way.
 
 def pixel(red, green, blue):
-    # red = bound(red, 0, 255)
-    # green = bound(green, 0, 255)
-    # blue = bound(blue, 0, 255)
+    red = bound(red, 0, 255)
+    green = bound(green, 0, 255)
+    blue = bound(blue, 0, 255)
 
     return struct.pack('!BBB', red, green, blue)
 
@@ -57,7 +57,7 @@ class Strip(object):
         self.dirty = False
 
     def set_pixel(self, index, red, green, blue):
-        self.pixel_map[index] = pixel(red, green, blue)
+        self.pixel_map[index] = struct.pack('!BBB', red, green, blue)
         self.dirty = True
 
 ## That's really the end of the OO stuff.

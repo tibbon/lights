@@ -117,8 +117,10 @@ def main(argv):
 
     redis_client = redis_conn()
     strip = Service(width=HEIGHT, height=WIDTH) # Yes, this seems backwards
-    strip.add_post_process(BlurRight)
-    strip.add_post_process(BlurLeft)
+
+    # Can test with these blur services to see how they look on the real tree
+    #strip.add_post_process(BlurRight)
+    #strip.add_post_process(BlurLeft)
 
     bitmap = initialize_empty_bitmap()
 

@@ -103,7 +103,6 @@ def display_to_pixelpusher(image, strip, redis_client):
     new_frame = strip.step()
     redis_client.rpush(FRAME_KEY, cPickle.dumps(new_frame))
 
-# Renders to LEDs or screen
 # @profile
 def render_bitmap(bitmap, strip, redis_client):
     img = cv2.cvtColor(bitmap, cv2.COLOR_HSV2RGB)

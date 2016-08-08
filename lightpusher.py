@@ -130,7 +130,6 @@ def main(argv):
         frame = camera.read()
 
         colors = process_frame(frame)
-        print(colors)
         bitmap.appendleft(colors)
         bitmap.pop()
         np_bitmap = np.array(bitmap, dtype=np.uint8)

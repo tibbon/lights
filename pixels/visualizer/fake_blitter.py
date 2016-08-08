@@ -42,7 +42,6 @@ def data():
     _, q4_frame = client.blpop('q4')
 
     result = q1_frame + q2_frame + q3_frame + q4_frame
-    print(result)
 
     if result == None:
         return json.dumps(None)

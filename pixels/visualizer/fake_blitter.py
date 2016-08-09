@@ -18,6 +18,8 @@ def prep_client(client):
     client.delete('q4')
 
 client = redis_conn()
+prep_client(client)
+
 # pixel_width=116
 
 @route('/')
@@ -35,13 +37,12 @@ def jquery():
 
 @route('/data')
 def data():
-    prep_client(client)
     _, q1_frame = client.blpop('q1')
-    _, q2_frame = client.blpop('q2')
-    _, q3_frame = client.blpop('q3')
-    _, q4_frame = client.blpop('q4')
+    # _, q2_frame = client.blpop('q2')
+    # _, q3_frame = client.blpop('q3')
+    # _, q4_frame = client.blpop('q4')
 
-    result = q1_frame + q2_frame + q3_frame + q4_frame
+    result = q1_frame # + q2_frame + q3_frame + q4_frame
 
     if result == None:
         return json.dumps(None)

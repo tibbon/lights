@@ -12,9 +12,9 @@ def bound(value, bottom, top):
 ## Doing things the functional way.
 
 def pixel(red, green, blue):
-    red = bound(red, 0, 255)
-    green = bound(green, 0, 255)
-    blue = bound(blue, 0, 255)
+    # red = bound(red, 0, 255)
+    # green = bound(green, 0, 255)
+    # blue = bound(blue, 0, 255)
 
     return struct.pack('!BBB', red, green, blue)
 

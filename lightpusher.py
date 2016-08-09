@@ -127,8 +127,8 @@ def main(argv):
     print("Initializing Camera")
     camera= cv2.VideoCapture(0)
 
-    # camera.set(cv2.CAP_PROP_FRAME_WIDTH, 160.0)
-    # camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 90.0)
+    camera.set(cv2.CAP_PROP_FRAME_WIDTH, 160.0)
+    camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 90.0)
 
     while True:
         bitmap.appendleft(process_frame(camera.read()))

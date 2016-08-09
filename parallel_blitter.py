@@ -44,10 +44,13 @@ def main():
         _, q3_frame = client.blpop('q3')
         _, q4_frame = client.blpop('q4')
 
-        full_frame = q1_frame + q2_frame + q3_frame + q4_frame
+        q1_frame = cPickle.loads(q1_frame)
+        q2_frame = cPickle.loads(q2_frame)
+        q3_frame = cPickle.loads(q3_frame)
+        q4_frame = cPickle.loads(q4_frame)
 
-        # print("Loop")
-        frame = cPickle.loads(full_frame)
+        frame = q1_frame + q2_frame + q3_frame + q4_frame
+
         lines = []
 
         # For all the strips?

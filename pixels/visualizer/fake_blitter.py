@@ -38,16 +38,21 @@ def jquery():
 @route('/data')
 def data():
     _, q1_frame = client.blpop('q1')
-    # _, q2_frame = client.blpop('q2')
+    _, q2_frame = client.blpop('q2')
     # _, q3_frame = client.blpop('q3')
     # _, q4_frame = client.blpop('q4')
 
-    result = q1_frame # + q2_frame + q3_frame + q4_frame
+    q1_frame = cPickle.loads(q1_frame)
+    q2_frame = cPickle.loads(q2_frame)
+    # q3_frame = cPickle.loads(q3_frame)
+    # q4_frame = cPickle.loads(q4_frame)
 
-    if result == None:
+    frame = q1_frame + q2_frame # + q3_frame + q4_frame
+
+    if frame == None:
         return json.dumps(None)
 
-    frame = cPickle.loads(result)
+    # frame = cPickle.loads(result)
     frame = ''.join(frame)
     frame = map(lambda x: struct.unpack('!B', x)[0], frame)
 

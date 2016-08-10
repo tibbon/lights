@@ -35,7 +35,7 @@ def main():
     prep_client(client)
 
     pixel_width = 360 # Number per strip
-    delay = 0.001
+    delay = 0.01
     print("Starting")
 
     while True:

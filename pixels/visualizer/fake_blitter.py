@@ -39,15 +39,15 @@ def jquery():
 def data():
     _, q1_frame = client.blpop('q1')
     _, q2_frame = client.blpop('q2')
-    # _, q3_frame = client.blpop('q3')
-    # _, q4_frame = client.blpop('q4')
+    _, q3_frame = client.blpop('q3')
+    _, q4_frame = client.blpop('q4')
 
     q1_frame = cPickle.loads(q1_frame)
     q2_frame = cPickle.loads(q2_frame)
-    # q3_frame = cPickle.loads(q3_frame)
-    # q4_frame = cPickle.loads(q4_frame)
+    q3_frame = cPickle.loads(q3_frame)
+    q4_frame = cPickle.loads(q4_frame)
 
-    frame = q1_frame + q2_frame # + q3_frame + q4_frame
+    frame = q1_frame + q2_frame + q3_frame + q4_frame
 
     if frame == None:
         return json.dumps(None)

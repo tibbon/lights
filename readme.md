@@ -46,6 +46,10 @@ Restore: `sudo dd if=rpi_image.dmg of=/dev/disk2`
 
 `cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_V4L=ON -D INSTALL_PYTHON_EXAMPLES=OFF -D BUILD_DOCS=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF   -D BUILD_EXAMPLES=OFF ..`
 
+## Controlling Pis
+
+Using public key encryption for SSH. Execute a command everywhere.
+`pssh -h ~/allpis -l pi -i 'ps aux | grep python'`
 
 ## Todo
 

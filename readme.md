@@ -10,10 +10,11 @@ To run Pixelpusher, open tabs with the following:
 OpenCV will probably give installation problems on OS X.
 
 Install Requirements:
-`virtualenv venv`
-`source venv/bin/activate`
-`pip install -r requirements.txt`
-`pip freeze >> requirements.txt `
+- `pip install virtualenv`
+- `virtualenv venv`
+- `source venv/bin/activate`
+- `pip install -r requirements.txt`
+- `pip freeze >> requirements.txt `
 
 ## Debug Pixelpusher via serial.
 

@@ -3,12 +3,13 @@ import time
 import random
 import struct
 import cPickle
+import os
 
 from pixelpusher import pixel, build_strip, send_strip
 
 import sys
 
-IP = '192.168.1.100' # Skipping DHCP
+IP = '192.168.1.100' # Pixelpusher IP address
 PORT = 9897
 
 MAX = 255
@@ -18,21 +19,30 @@ OFF = 0
 FRAME_MASTER = 'master'
 FRAME_KEY = 'frame'
 
+def redis_conn():
+    host = os.environ.get('REDISHOST', '127.0.0.1')
+    print(host)
+    return redis.Redis(host=host)
+
 def prep_client(client):
-    client.delete(FRAME_KEY)
+    client.delete('q1')
 
 def main():
-    client = redis.Redis()
+    client = redis_conn()
     prep_client(client)
 
-    pixel_width = 360 # I don't know what this does!!! Is it the length?
-    delay = 0.001
+    pixel_width = 360 # Number per strip
+    delay = 0.005
     print("Starting")
 
     while True:
-        frame_name, frame = client.blpop(FRAME_KEY)
-        print("Loop")
-        frame = cPickle.loads(frame)
+        _, q1_frame = client.blpop('q1')
+
+        q1_frame = cPickle.loads(q1_frame)
+
+
+        frame = q1_frame
+
         lines = []
 
         # For all the strips?
@@ -41,12 +51,9 @@ def main():
 
         # Sends two strips at a time?
         for index in range(0, 6):
-            # Ok, these are already packed pixels I think!
             s = struct.pack('!xxxxB', index) + ''.join(lines[index])
             send_strip(''.join(s), (IP, PORT))
             time.sleep(delay)
 
 if __name__ == "__main__":
     main()
-
-# Downside is this skips the discovery process completely, which kinda sucks
